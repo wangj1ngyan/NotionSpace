@@ -1,4 +1,23 @@
 // 注: process.env.XX是Vercel的环境变量，配置方式见：https://docs.tangly1024.com/article/how-to-config-notion-next#c4768010ae7d44609b744e79e2f9959a
+
+// 定义每种语言对应的欢迎语数组
+const greetingWords = {
+  'zh-CN': ['你好，我是一个图形学在读学生'],
+  'en-US': ['Hi，I\'m an upcoming programmer'],
+  'fr-FR': ['Bonjour，j\'écris parfois en français'],
+  'ja-JP': ['日本語を勉強しているんだ'],
+  'default': ['Welcome to my blog🎉'] // 默认欢迎语
+};
+
+// 默认语言
+const defaultLanguage = process.env.NEXT_PUBLIC_LANG || 'zh-CN';
+
+// 根据当前语言选择对应的欢迎语数组
+const selectedGreetings = greetingWords[defaultLanguage] || greetingWords['default'];
+
+// 将数组转换为字符串，并以逗号分隔
+const selectedGreeting = selectedGreetings.join(',');
+
 const BLOG = {
   // Important page_id！！！Duplicate Template from  https://www.notion.so/tanghh/02ab3b8678004aa69e9e415905ef32a5
   NOTION_PAGE_ID:
@@ -13,8 +32,8 @@ const BLOG = {
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜间模式起至时间，false时关闭根据时间自动切换夜间模式
 
   // 3.14.1版本后，欢迎语在此配置，英文逗号隔开 ,  即可支持多个欢迎语打字效果。
-  GREETING_WORDS: process.env.NEXT_PUBLIC_GREETING_WORDS || '你好，我是一个图形学在读学生,Hi，I\'m an upcoming programmer,Bonjour，j\'écris parfois en français,日本語を勉強しているんだ,Welcome to my blog🎉',
-  // GREETING_WORDS: process.env.NEXT_PUBLIC_GREETING_WORDS || selectedGreeting,
+  // GREETING_WORDS: process.env.NEXT_PUBLIC_GREETING_WORDS || '你好，我是一个图形学在读学生,Hi，I\'m an upcoming programmer,Bonjour，j\'écris parfois en français,日本語を勉強しているんだ,Welcome to my blog🎉',
+  GREETING_WORDS: process.env.NEXT_PUBLIC_GREETING_WORDS || selectedGreeting,
   
   CUSTOM_MENU: process.env.NEXT_PUBLIC_CUSTOM_MENU || false, // 支持Menu 类型，从3.12.0版本起，各主题将逐步支持灵活的二级菜单配置，替代了原来的Page类型，此配置是试验功能、默认关闭。
 
